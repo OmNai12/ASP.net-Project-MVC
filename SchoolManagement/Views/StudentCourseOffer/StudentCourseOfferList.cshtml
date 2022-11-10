@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "StudentCourseOfferList";
+}
+
+<div ng-app="ABCApp" ng-controller="StudentCourseOfferController">
+
+    <div class="content-wrapper">
+
+        <!-- Content Header (Page header) -->
+
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Student Course Offer List</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="../StudentCourseOffer/StudentCourseOfferEntry">Add New Info</a></li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Student ID & Name</label>
+                            <select class="form-control" ng-model="StudentCourseOfferDAO.StudentId" id="StudentId">
+                                <option ng-repeat="e in StudentIDNO" value="{{e.StudentId}}">{{e.StudentIdNO}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Trimester Name</label>
+                            <select class="form-control" ng-model="StudentCourseOfferDAO.TrimesterInfoId" id="TrimesterInfoId">
+                                <option ng-repeat="e in Trimester" value="{{e.TrimesterInfoId}}">{{e.TrimesterInfoName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <br />
+                            <button type="button" class="btn btn-success" onclick="GetList()">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-responsive" id="dtTable">
+                            <thead>
+                                <tr>
+                                    <td>SL#</td>
+                                    <td>Course Name</td>
+                                </tr>
+                            </thead>
+                            <tbody id="dtTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script src="~/Scripts/angular.min.js"></script>
+
+<script src="~/Scripts/AngularController/StudentCourseOfferJS.js"></script>
+
+<script>
+
+    function GetList() {
+
+        var prm = "";
+
+        if ($('#StudentId').val() != "") {
+
+            prm = prm + " and StudentId ='" + $('#StudentId').val() + "'";
+
+        }
+
+        if ($('#TrimesterInfoId').val() != "") {
+
+            prm = prm + " and TrimesterInfoId ='" + $('#TrimesterInfoId').val() + "'";
+
+        }
+
+          var urlPath = '@Url.Action("GetStudentCourseOfferList", "StudentCourseOffer")';
+
+        $.ajax({
+
+            url: urlPath,
+
+            dataType: 'json',
+
+            data: { prm: prm},
+
+            type: "Get",
+
+            async: true,
+
+            success: function (data) {
+
+                var result = JSON.parse(data);
+
+                var row = "";
+
+                $('#dtTableBody').html("");
+
+                for (var i = 0; i < result.length;i++) {
+
+                    row +="<tr>";
+
+                    row += "<td>" + (i + 1) + "</td>";
+
+                    row += "<td>" + result[i].CourseName + "</td>";
+
+                    row += "</tr>";
+
+                }
+
+                $('#dtTableBody').html(row);
+
+                    },
+
+            error: function (data) {
+
+                alert("Operation Faild!!");
+
+            }
+
+        })
+
+    }
+</script>

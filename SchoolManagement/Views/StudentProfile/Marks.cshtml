@@ -1,0 +1,180 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Marks</title>
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+
+    <!-- Ionicons -->
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- Tempusdominus Bbootstrap 4 -->
+
+    <link rel="stylesheet" href="~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+    <!-- iCheck -->
+
+    <link rel="stylesheet" href="~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+
+    <!-- JQVMap -->
+
+    <link rel="stylesheet" href="~/Content/plugins/jqvmap/jqvmap.min.css">
+
+    <!-- Theme style -->
+
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+
+    <!-- overlayScrollbars -->
+
+    <link rel="stylesheet" href="~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
+    <!-- Daterange picker -->
+
+    <link rel="stylesheet" href="~/Content/plugins/daterangepicker/daterangepicker.css">
+
+    <!-- summernote -->
+
+    <link rel="stylesheet" href="~/Content/plugins/summernote/summernote-bs4.css">
+
+    <!-- Google Font: Source Sans Pro -->
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+
+    <!-- Select2 -->
+
+    <link rel="stylesheet" href="~/Content/plugins/select2/css/select2.min.css">
+
+    <link rel="stylesheet" href="~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="../Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AdminLTE App -->
+
+    <script src="../Content/dist/js/adminlte.min.js"></script>
+
+
+    <script src="../Scripts/angular.min.js"></script>
+
+    <!-- ChartJS -->
+
+    <script src="../Content/plugins/chart.js/Chart.min.js"></script>
+
+    <!-- Sparkline -->
+
+    <script src="../Content/plugins/sparklines/sparkline.js"></script>
+
+    <!-- JQVMap -->
+
+    <script src="../Content/plugins/jqvmap/jquery.vmap.min.js"></script>
+
+    <script src="../Content/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+    <!-- jQuery Knob Chart -->
+
+    <script src="../Content/plugins/jquery-knob/jquery.knob.min.js"></script>
+
+    <!-- daterangepicker -->
+
+    <script src="../Content/plugins/moment/moment.min.js"></script>
+
+    <script src="../Content/plugins/daterangepicker/daterangepicker.js"></script>
+
+    <!-- Tempusdominus Bootstrap 4 -->
+
+    <script src="../Content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Summernote -->
+
+    <script src="../Content/plugins/summernote/summernote-bs4.min.js"></script>
+
+    <!-- overlayScrollbars -->
+
+    <script src="../Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
+    <!-- AdminLTE App -->
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/AngularController/StudentCourseOfferJS.js"></script>
+</head>
+<body>
+    <div>
+        <!-- Main content -->
+        <section class="content">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-body row">
+                    <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                        <div>
+                            <h2><label id="StudentIdNo"></label></h2>
+                            <h2><label id="StudentName"></label></h2>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="form-group">
+                            <label for="inputName">Name</label>
+                            <input type="text" id="inputName" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">E-Mail</label>
+                            <input type="email" id="inputEmail" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSubject">Subject</label>
+                            <input type="text" id="inputSubject" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputMessage">Message</label>
+<textarea id="inputMessage" class="form-control" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            |<input type="submit" class="btn btn-primary" value="Send message">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            I
+        </section>
+    </div>
+    <script>
+    GetList();
+    function GetList() {
+        alert("Function Invoked");
+        var urlPath = '@Url.Action("GetStudentInfo", "StudentProfile")';
+        $.ajax({
+            url: urlPath,
+
+            dataType: 'json',
+
+            type: "Get",
+
+            async: true,
+
+            success: function (data) {
+
+                var result = JSON.parse(data);
+
+                $("#StudentIdNo").html(result[0].StudentIdNO);
+
+                $("#StudentName").html(result[0].StudentName);
+
+                    },
+            error: function (data) {
+
+                alert("Operation Faild!!");
+            }
+        })
+    }
+    </script>
+</body>
+</html>
+
+

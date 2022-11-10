@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "StudentCourseOfferEntry";
+}
+
+<div ng-app="ABCApp" ng-controller="StudentCourseOfferController">
+    <!-- Content Header (Page header) -->
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0 text-dark">Student Course Offer</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="../Batch/ListView">List View</a></li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Student ID & Name</label>
+                            <select class="form-control" ng-model="StudentCourseOfferDAO.StudentId" id="StudentId">
+                                <option ng-repeat="e in StudentIDNO" value="{{e.StudentId}}">{{e.StudentIdNO}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Trimester Name</label>
+                            <select class="form-control" ng-model="StudentCourseOfferDAO.TrimesterInfoId" id="TrimesterInfoId">
+                                <option ng-repeat="e in Trimester" value="{{e.TrimesterInfoId}}">{{e.TrimesterInfoName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Course Name</label>
+                            <select class="form-control" multiple ng-model="StudentCourseOfferDAO.CourseId" id="CourseId">
+                                <option ng-repeat="e in CourseInfo" value="{{e.CourseId}}">{{e.CourseName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Course Offer Date</label>
+                            <input type="date" ng-model=".StudentCourseOfferDAO.CourseOfferDate" id="CourseOfferDate" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <input type="button" onclick="Save()" class="btn btn-primary" value="Save" />
+                    </div>
+                </div>
+
+
+
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/angular.min.js"></script>
+
+<script src="~/Scripts/AngularController/StudentCourseOfferJS.js"></script>
+
+<script>
+
+    function Save() {
+        var jsDt = {};
+        var dv= $('#CourseId').val();
+
+        var multiCousrId = dv.toString();
+
+        jsDt["CourseId"] = multiCousrId;
+        jsDt["StudentId"] = $('#StudentId').val();
+        jsDt["TrimesterInfoId"] = $('#TrimesterInfoId').val();
+        jsDt["CourseOfferDate"] = $('#CourseOfferDate').val();
+
+
+        var urlPath = '@Url.Action("Save_Info", "StudentCourseOffer")';
+        $.ajax({
+
+            data: jsDt,
+            url: urlPath,
+            type: "POST",
+            success: function (result) {
+
+                alert("Operation Successfully Done")
+                var url = '@Url.Action("StudentCourseOfferEntry", "StudentCourseOffer")'
+                window.location.href = url;
+            },
+            error: function (data) {
+
+                alert("Operation Faild!!");
+            }
+        })
+
+    }
+</script>
